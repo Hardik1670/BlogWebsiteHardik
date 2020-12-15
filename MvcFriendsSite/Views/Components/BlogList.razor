@@ -1,0 +1,18 @@
+﻿@using MvcFriendsSite.Models
+
+
+<h3>Blog List</h3>
+
+<dl>
+    @foreach (BlogPost blog in ModelList)
+    {
+        <dt>@blog.Name @blog.AuthorEmail</dt>
+        <dd>@blog.Content</dd>
+    }
+</dl>
+
+
+@code {
+    [Parameter]
+    public IEnumerable<BlogPost> ModelList { get; set; }
+}

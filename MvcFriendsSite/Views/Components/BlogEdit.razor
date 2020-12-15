@@ -1,0 +1,65 @@
+﻿@using System.Web
+@using MvcFriendsSite.Models
+
+
+<h3>Blog Edit</h3>
+
+<form action="@url" method="post">
+    <input type="hidden" name="Id" value="@blog.Id">
+    <label> Name: <input type="text" name="Name" value="@blog.Name"> </label>
+    <label> Content: <input type="text" name="Content" value="@blog.Content"> </label>
+    <label> AuthorEmail: <input type="text" name="AuthorEmail" value="@blog.AuthorEmail"> </label>
+    <input type="submit" name="submit" value="@buttonMode" />
+</form>
+
+
+@code {
+    private BlogPost _blog = new BlogPost();
+
+    private string url
+    {
+        get
+        {
+            string ret = String.Empty;
+
+            if (_blog.Id < 1)
+            {
+                ret = String.Concat(baseUrl, "/Create").Replace("//", "/");
+
+                return ret;
+            }
+            ret = String.Concat(baseUrl, "/Edit/", _blog.Id.ToString()).Replace("//", "/");
+
+            return ret;
+        }
+
+    }
+
+    private string buttonMode
+    {
+        get
+        {
+            if (_blog.Id < 1)
+            {
+                return "Create new Post";
+            }
+            return "Update Post";
+        }
+    }
+
+    [Parameter]
+    public BlogPost blog
+    {
+        set
+        {
+            _blog = value;
+        }
+        get
+        {
+            return _blog;
+        }
+    }
+
+    [Parameter]
+    public string baseUrl { get; set; }
+}
